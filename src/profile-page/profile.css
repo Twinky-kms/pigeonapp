@@ -1,0 +1,37 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-top-page {
+    width: 300px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-avatar, .profile-login-avatar {
+    margin: auto;
+  }
+  
+  .profile-avatar {
+    width: 90px;
+    height: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .settings-bar {
+    width: 300px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    border-top: 2px solid #1C6EA4;
+    border-bottom: 2px solid #1C6EA4;
+  }
+  
+  .settings-title {
+    margin: auto;
+  }

@@ -1,0 +1,193 @@
+html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: white;
+  width: 100%;
+  height: 100%;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+#root {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.App {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+/*Log in Styling*/
+
+.Login {
+  background: white;
+  position: absolute;
+  top: 22.5%;
+  left: 17.5%;
+  height: 55vh;
+  width: 65vw;
+  max-width: 600px;
+  overflow: hidden;
+  display: block;
+}
+
+.exit {
+  float: right;
+  font-size: 1.35rem;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.exit:hover {
+  background-color: blue;
+}
+
+.sign-in-title {
+  font-family: bahnschrift;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+}
+
+.text {
+  margin-top: 1.25rem;
+  font-family: roboto;
+  font-weight: light;
+}
+
+.login-text {
+  border: none;
+  height: 2rem;
+  position: relative;
+  background: white;
+  border-bottom: .1rem solid #23d160;
+}
+
+.login-text::placeholder {
+  color: #d9d8d7;
+}
+
+.login-text:focus {
+  border: .1rem solid #23d160;
+  transition: .2s;
+}
+
+.login-text:focus::placeholder {
+  opacity: .1;
+  transition: .1s;
+}
+
+.qwe label {
+  margin-left: 10%;
+}
+
+.continue {
+  height: 2rem;
+  background-image: linear-gradient(to right, #23d160, #85edff);
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  bottom: 1rem;
+  font-family: roboto;
+}
+
+.continue span {
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.continue span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+}
+
+.continue:hover span {
+  padding-right: 25px;
+}
+
+.continue:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.s-center {
+  left: 10%;
+  width: 80%;
+}
+
+/* Navigation styling */
+
+.MuiBottomNavigation-root {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+  background-color: #d9d8d7;
+  z-index: 2000;
+}
+
+.icon-image {
+  width: 25px;
+}
+
+/* Messaging styling */
+
+.MuiDrawer-paper {
+  margin-bottom: 56px;
+  max-height: 100%;
+}
+
+/* Send Message */
+
+
+
+/* Profile Page */
+
+
+
+.page {
+  opacity: 0;
+}
+
+.MuiToolbar-root {
+  background: #618fe8;
+}
+
+@media screen and (max-width: 600px) {
+  .displayConversation {
+    width: calc(100% - 56px);
+  }
+  .main {
+    width: calc(100% - 56px);
+  }
+}
