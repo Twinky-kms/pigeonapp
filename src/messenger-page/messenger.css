@@ -1,0 +1,5 @@
+.addRoom {
+    position: absolute;
+    bottom: 100px;
+    z-index: 1000000;
+  }

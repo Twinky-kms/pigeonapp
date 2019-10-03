@@ -1,0 +1,94 @@
+.messagingSend {
+    position: fixed;
+    align-self: flex-end;
+    padding-left: 24px;
+    width: calc(100% - 72px);
+    height: 28px;
+    bottom: 56px;
+    right: 10px;
+    z-index: 12;
+}
+  
+  #send {
+    display: flex;
+  }
+  
+  #input {
+      border: 1px solid gray;
+      font: medium -moz-fixed;
+      font: -webkit-small-control;
+      height: 28px;
+      padding: 2px;
+    width: 100%;
+  }
+  
+  
+  .submit{
+    width: auto;
+    height: 28px;
+    color: blue;
+    display: flex;
+      align-items: center;
+  }
+  
+  .emojiButton {
+    width: auto;
+    height: 28px;
+    transition-duration: .2s;
+    cursor: pointer;
+  }
+  
+  .emojiButton:hover {
+    height: 30px;
+    transition-duration: .2s
+  }
+
+  .emojiBox123{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    height: calc(380px + 1rem);
+    overflow: hidden;
+  }
+
+  .emojione {
+    height: 1rem;
+  }
+  
+  .ld-emoji {
+    height: 28px;
+    width: 28px;
+  }
+  
+  .closeBottom {
+    width: 340px;
+    height: 28px;
+  }
+
+  .emojiClicker {
+      height: 28px;
+      width: 28px
+  }
+
+  @media screen and (max-width: 400px) {
+    .emojiBox123 {
+        width: 280px;
+    }
+    .ld-emoji {
+        height: 20px;
+        width: 28px;
+    }
+    .HJDRz {
+        width: 280px;
+    }
+    .cVsylS {
+        width: 220px;
+    }
+  }
+
+
+  @media screen and (max-width: 330px) {
+    .emojiBox123 {
+        width: 260px;
+    }
+  }
