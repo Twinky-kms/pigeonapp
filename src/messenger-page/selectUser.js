@@ -1,15 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import Select from 'react-select';
-import { emphasize, makeStyles, useTheme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import NoSsr from '@material-ui/core/NoSsr';
+import deburr from 'lodash/deburr';
+import Autosuggest from 'react-autosuggest';
+import match from 'autosuggest-highlight/match';
+import parse from 'autosuggest-highlight/parse';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
-import CancelIcon from '@material-ui/icons/Cancel';
+import Popper from '@material-ui/core/Popper';
+import { makeStyles } from '@material-ui/core/styles';
 
 const suggestions = [
     { label: 'NeonNexus' },
@@ -19,355 +17,154 @@ const suggestions = [
     { label: 'Cryptomaniac' },
     { label: 'ShadowHunter117' },
     { label: 'bztianjiao' },
-].map(suggestion => ({
-    value: suggestion.label,
-    label: suggestion.label,
-}));
+]
+
+function renderInputComponent(inputProps) {
+    const { classes, inputRef = () => { }, ref, ...other } = inputProps;
+
+    return (
+        <TextField
+            fullWidth
+            InputProps={{
+                inputRef: node => {
+                    ref(node);
+                    inputRef(node);
+                },
+                classes: {
+                    input: classes.input,
+                },
+            }}
+            {...other}
+        />
+    );
+}
+
+function renderSuggestion(suggestion, { query, isHighlighted }) {
+    const matches = match(suggestion.label, query);
+    const parts = parse(suggestion.label, matches);
+
+    return (
+        <MenuItem selected={isHighlighted} component="div">
+            <div>
+                {parts.map(part => (
+                    <span key={part.text} style={{ fontWeight: part.highlight ? 500 : 400 }}>
+                        {part.text}
+                    </span>
+                ))}
+            </div>
+        </MenuItem>
+    );
+}
+
+function getSuggestions(value) {
+    const inputValue = deburr(value.trim()).toLowerCase();
+    const inputLength = inputValue.length;
+    let count = 0;
+
+    return inputLength === 0
+        ? []
+        : suggestions.filter(suggestion => {
+            const keep =
+                count < 5 && suggestion.label.slice(0, inputLength).toLowerCase() === inputValue;
+
+            if (keep) {
+                count += 1;
+            }
+
+            return keep;
+        });
+}
+
+function getSuggestionValue(suggestion) {
+    return suggestion.label;
+}
 
 const useStyles = makeStyles(theme => ({
     root: {
+        height: 250,
         flexGrow: 1,
-        minWidth: 290,
-        height: 52,
-        marginTop: 10,
-        marginLeft: 5,
-        marginRight: 5,
     },
-    input: {
-        display: 'flex',
-        padding: 0,
-        height: 'auto',
+    container: {
+        position: 'relative',
     },
-    valueContainer: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        flex: 1,
-        alignItems: 'center',
-        overflow: 'hidden',
-    },
-    chip: {
-        margin: theme.spacing(0.5, 0.25),
-    },
-    chipFocused: {
-        backgroundColor: emphasize(
-            theme.palette.type === 'light' ? theme.palette.grey[300] : theme.palette.grey[700],
-            0.08,
-        ),
-    },
-    noOptionsMessage: {
-        padding: theme.spacing(1, 2),
-    },
-    singleValue: {
-        fontSize: 16,
-    },
-    placeholder: {
-        position: 'absolute',
-        left: 2,
-        bottom: 6,
-        fontSize: 16,
-    },
-    paper: {
+    suggestionsContainerOpen: {
         position: 'absolute',
         zIndex: 1,
         marginTop: theme.spacing(1),
         left: 0,
         right: 0,
     },
+    suggestion: {
+        display: 'block',
+    },
+    suggestionsList: {
+        margin: 0,
+        padding: 0,
+        listStyleType: 'none',
+    },
     divider: {
         height: theme.spacing(2),
     },
 }));
 
-function NoOptionsMessage(props) {
-    return (
-        <Typography
-            color="textSecondary"
-            className={props.selectProps.classes.noOptionsMessage}
-            {...props.innerProps}
-        >
-            {props.children}
-        </Typography>
-    );
-}
-
-NoOptionsMessage.propTypes = {
-    /**
-     * The children to be rendered.
-     */
-    children: PropTypes.node,
-    /**
-     * Props to be passed on to the wrapper.
-     */
-    innerProps: PropTypes.object.isRequired,
-    selectProps: PropTypes.object.isRequired,
-};
-
-function inputComponent({ inputRef, ...props }) {
-    return <div ref={inputRef} {...props} />;
-}
-
-inputComponent.propTypes = {
-    inputRef: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.shape({
-            current: PropTypes.any.isRequired,
-        }),
-    ]),
-};
-
-function Control(props) {
-    const {
-        children,
-        innerProps,
-        innerRef,
-        selectProps: { classes, TextFieldProps },
-    } = props;
-
-    return (
-        <TextField
-            fullWidth
-            InputProps={{
-                inputComponent,
-                inputProps: {
-                    className: classes.input,
-                    ref: innerRef,
-                    children,
-                    ...innerProps,
-                },
-            }}
-            {...TextFieldProps}
-        />
-    );
-}
-
-Control.propTypes = {
-    /**
-     * Children to render.
-     */
-    children: PropTypes.node,
-    /**
-     * The mouse down event and the innerRef to pass down to the controller element.
-     */
-    innerProps: PropTypes.shape({
-        onMouseDown: PropTypes.func.isRequired,
-    }).isRequired,
-    innerRef: PropTypes.oneOfType([
-        PropTypes.oneOf([null]),
-        PropTypes.func,
-        PropTypes.shape({
-            current: PropTypes.any.isRequired,
-        }),
-    ]).isRequired,
-    selectProps: PropTypes.object.isRequired,
-};
-
-function Option(props) {
-    return (
-        <MenuItem
-            ref={props.innerRef}
-            selected={props.isFocused}
-            component="div"
-            style={{
-                fontWeight: props.isSelected ? 500 : 400,
-            }}
-            {...props.innerProps}
-        >
-            {props.children}
-        </MenuItem>
-    );
-}
-
-Option.propTypes = {
-    /**
-     * The children to be rendered.
-     */
-    children: PropTypes.node,
-    /**
-     * props passed to the wrapping element for the group.
-     */
-    innerProps: PropTypes.shape({
-        id: PropTypes.string.isRequired,
-        key: PropTypes.string.isRequired,
-        onClick: PropTypes.func.isRequired,
-        onMouseMove: PropTypes.func.isRequired,
-        onMouseOver: PropTypes.func.isRequired,
-        tabIndex: PropTypes.number.isRequired,
-    }).isRequired,
-    /**
-     * Inner ref to DOM Node
-     */
-    innerRef: PropTypes.oneOfType([
-        PropTypes.oneOf([null]),
-        PropTypes.func,
-        PropTypes.shape({
-            current: PropTypes.any.isRequired,
-        }),
-    ]).isRequired,
-    /**
-     * Whether the option is focused.
-     */
-    isFocused: PropTypes.bool.isRequired,
-    /**
-     * Whether the option is selected.
-     */
-    isSelected: PropTypes.bool.isRequired,
-};
-
-function Placeholder(props) {
-    const { selectProps, innerProps = {}, children } = props;
-    return (
-        <Typography color="textSecondary" className={selectProps.classes.placeholder} {...innerProps}>
-            {children}
-        </Typography>
-    );
-}
-
-Placeholder.propTypes = {
-    /**
-     * The children to be rendered.
-     */
-    children: PropTypes.node,
-    /**
-     * props passed to the wrapping element for the group.
-     */
-    innerProps: PropTypes.object,
-    selectProps: PropTypes.object.isRequired,
-};
-
-function SingleValue(props) {
-    return (
-        <Typography className={props.selectProps.classes.singleValue} {...props.innerProps}>
-            {props.children}
-        </Typography>
-    );
-}
-
-SingleValue.propTypes = {
-    /**
-     * The children to be rendered.
-     */
-    children: PropTypes.node,
-    /**
-     * Props passed to the wrapping element for the group.
-     */
-    innerProps: PropTypes.any.isRequired,
-    selectProps: PropTypes.object.isRequired,
-};
-
-function ValueContainer(props) {
-    return <div className={props.selectProps.classes.valueContainer}>{props.children}</div>;
-}
-
-ValueContainer.propTypes = {
-    /**
-     * The children to be rendered.
-     */
-    children: PropTypes.node,
-    selectProps: PropTypes.object.isRequired,
-};
-
-function MultiValue(props) {
-    return (
-        <Chip
-            tabIndex={-1}
-            label={props.children}
-            className={clsx(props.selectProps.classes.chip, {
-                [props.selectProps.classes.chipFocused]: props.isFocused,
-            })}
-            onDelete={props.removeProps.onClick}
-            deleteIcon={<CancelIcon {...props.removeProps} />}
-        />
-    );
-}
-
-MultiValue.propTypes = {
-    children: PropTypes.node,
-    isFocused: PropTypes.bool.isRequired,
-    removeProps: PropTypes.shape({
-        onClick: PropTypes.func.isRequired,
-        onMouseDown: PropTypes.func.isRequired,
-        onTouchEnd: PropTypes.func.isRequired,
-    }).isRequired,
-    selectProps: PropTypes.object.isRequired,
-};
-
-function Menu(props) {
-    return (
-        <Paper square className={props.selectProps.classes.paper} {...props.innerProps}>
-            {props.children}
-        </Paper>
-    );
-}
-
-Menu.propTypes = {
-    /**
-     * The children to be rendered.
-     */
-    children: PropTypes.element.isRequired,
-    /**
-     * Props to be passed to the menu wrapper.
-     */
-    innerProps: PropTypes.object.isRequired,
-    selectProps: PropTypes.object.isRequired,
-};
-
-const components = {
-    Control,
-    Menu,
-    MultiValue,
-    NoOptionsMessage,
-    Option,
-    Placeholder,
-    SingleValue,
-    ValueContainer,
-};
-
-export default function IntegrationReactSelect() {
+export default function IntegrationAutosuggest() {
     const classes = useStyles();
-    const theme = useTheme();
-    const [single, setSingle] = React.useState(null);
-    const [multi, setMulti] = React.useState(null);
+    const [state, setState] = React.useState({
+        single: '',
+        popper: '',
+    });
 
-    const handleChangeSingle = value => {
-        setSingle(value);
+
+    const [stateSuggestions, setSuggestions] = React.useState([]);
+
+    const handleSuggestionsFetchRequested = ({ value }) => {
+        setSuggestions(getSuggestions(value));
     };
 
-    const handleChangeMulti = value => {
-        setMulti(value);
+    const handleSuggestionsClearRequested = () => {
+        setSuggestions([]);
     };
 
-    const selectStyles = {
-        input: base => ({
-            ...base,
-            color: theme.palette.text.primary,
-            '& input': {
-                font: 'inherit',
-            },
-        }),
+    const handleChange = name => (event, { newValue }) => {
+        setState({
+            ...state,
+            [name]: newValue,
+        });
+    };
+
+    const autosuggestProps = {
+        renderInputComponent,
+        suggestions: stateSuggestions,
+        onSuggestionsFetchRequested: handleSuggestionsFetchRequested,
+        onSuggestionsClearRequested: handleSuggestionsClearRequested,
+        getSuggestionValue,
+        renderSuggestion,
     };
 
     return (
         <div className={classes.root}>
-            <NoSsr>
-                <Select
-                    classes={classes}
-                    styles={selectStyles}
-                    inputId="react-select-single"
-                    TextFieldProps={{
-                        label: 'Enter Username',
-                        InputLabelProps: {
-                            htmlFor: 'react-select-single',
-                            shrink: true,
-                        },
-                    }}
-                    placeholder="Search Here"
-                    options={suggestions}
-                    components={components}
-                    value={single}
-                    onChange={handleChangeSingle}
-                />
-                <div className={classes.divider} />
-            </NoSsr>
+            <Autosuggest
+                {...autosuggestProps}
+                inputProps={{
+                    classes,
+                    id: 'react-autosuggest-simple',
+                    label: 'Username',
+                    placeholder: 'Search Username',
+                    value: state.single,
+                    onChange: handleChange('single'),
+                }}
+                theme={{
+                    container: classes.container,
+                    suggestionsContainerOpen: classes.suggestionsContainerOpen,
+                    suggestionsList: classes.suggestionsList,
+                    suggestion: classes.suggestion,
+                }}
+                renderSuggestionsContainer={options => (
+                    <Paper {...options.containerProps} square>
+                        {options.children}
+                    </Paper>
+                )}
+            />
         </div>
     );
 }

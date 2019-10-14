@@ -183,6 +183,10 @@ ul {
   background: #618fe8;
 }
 
+.hidden {
+  display: none;
+}
+
 @media screen and (max-width: 600px) {
   .displayConversation {
     width: calc(100% - 56px);

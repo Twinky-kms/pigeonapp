@@ -9,11 +9,19 @@ import AddUser from './addUser';
 export default function Messenger(props) {
     const user = props.name;
     const chatText = Chat.chat
+    const friends = ['Michael', 'Jim', 'Pam', 'Dwight']
+
+    function onChangeAddName(newName) {
+        friends.push(newName);
+        console.log(friends);
+    }
 
     return (
         <div className="messenger">
-            <MessengerNavigation />
-            <AddUser />
+            <MessengerNavigation friendList={friends} />
+            <AddUser
+                addFriends={onChangeAddName}
+            />
             <MessageSend />
             <DisplayChat chat={chatText} user={user} />
         </div>
