@@ -20,6 +20,7 @@ body {
   height: 100%;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -44,107 +45,6 @@ ul {
 
 /*Log in Styling*/
 
-.Login {
-  background: white;
-  position: absolute;
-  top: 22.5%;
-  left: 17.5%;
-  height: 55vh;
-  width: 65vw;
-  max-width: 600px;
-  overflow: hidden;
-  display: block;
-}
-
-.exit {
-  float: right;
-  font-size: 1.35rem;
-  width: 1.7rem;
-  height: 1.7rem;
-  border-radius: 50%;
-  text-align: center;
-  cursor: pointer;
-}
-
-.exit:hover {
-  background-color: blue;
-}
-
-.sign-in-title {
-  font-family: bahnschrift;
-  font-weight: bold;
-  font-size: 2rem;
-  text-align: center;
-}
-
-.text {
-  margin-top: 1.25rem;
-  font-family: roboto;
-  font-weight: light;
-}
-
-.login-text {
-  border: none;
-  height: 2rem;
-  position: relative;
-  background: white;
-  border-bottom: .1rem solid #23d160;
-}
-
-.login-text::placeholder {
-  color: #d9d8d7;
-}
-
-.login-text:focus {
-  border: .1rem solid #23d160;
-  transition: .2s;
-}
-
-.login-text:focus::placeholder {
-  opacity: .1;
-  transition: .1s;
-}
-
-.qwe label {
-  margin-left: 10%;
-}
-
-.continue {
-  height: 2rem;
-  background-image: linear-gradient(to right, #23d160, #85edff);
-  border: none;
-  cursor: pointer;
-  position: absolute;
-  bottom: 1rem;
-  font-family: roboto;
-}
-
-.continue span {
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.continue span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-}
-
-.continue:hover span {
-  padding-right: 25px;
-}
-
-.continue:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
-.s-center {
-  left: 10%;
-  width: 80%;
-}
 
 /* Navigation styling */
 
@@ -163,8 +63,7 @@ ul {
 /* Messaging styling */
 
 .MuiDrawer-paper {
-  margin-bottom: 56px;
-  max-height: 100%;
+  max-height: calc(100% - 84px);
 }
 
 /* Send Message */
@@ -193,5 +92,25 @@ ul {
   }
   .main {
     width: calc(100% - 56px);
+  }
+}
+
+
+@media screen and (min-width: 601px) {
+  .MuiDrawer-paperAnchorDockedLeft::-webkit-scrollbar {
+    width: 3px;
+  }
+  .MuiDrawer-paperAnchorDockedLeft::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  .MuiDrawer-paperAnchorDockedLeft::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  .MuiDrawer-paperAnchorDockedLeft::-webkit-scrollbar-thumb:hover {
+    background: #555; 
   }
 }

@@ -1,0 +1,52 @@
+{
+    "friends": [
+        {
+            "friend": "Michael",
+            "muted": false
+        },
+        {
+            "friend": "Jim",
+            "muted": true
+        },
+        {
+            "friend": "Pam",
+            "muted": false
+        },
+        {
+            "friend": "Dwight",
+            "muted": true
+        },
+        {
+            "friend": "Creed",
+            "muted": false
+        },
+        {
+            "friend": "Kevin",
+            "muted": false
+        },
+        {
+            "friend": "Angela",
+            "muted": true
+        },
+        {
+            "friend": "Ryan",
+            "muted": false
+        },
+        {
+            "friend": "Toby",
+            "muted": true
+        },
+        {
+            "friend": "Stanley",
+            "muted": false
+        },
+        {
+            "friend": "Kelly",
+            "muted": false
+        },
+        {
+            "friend": "Meredith",
+            "muted": false
+        }
+    ]
+}
