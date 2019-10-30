@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import emojione from 'emojione';
 import $ from "jquery";
+import Message from './message';
 
 export default function Chat(props) {
     const chatText = props.chat;
@@ -20,9 +21,9 @@ export default function Chat(props) {
 
     function userSort(value) {
         if (value === user) {
-            return ('you');
+            return 'you'
         } else {
-            return ('other');
+            return 'other'
         }
     }
 
@@ -30,13 +31,16 @@ export default function Chat(props) {
         <div className="displayConversation" >
             <ul >
                 {chatText.map((message, index) => (
-                    <li key={index} className={`message ${userSort(message.senderId)}`}>
-                        <p className="message-text one" >{message.text}</p>
-                    </li>
+                    <Message
+                        key={index}
+                        senderId={userSort(message.senderId)}
+                        text={message.text}
+                        messageNumber={index}
+                    />
                 ))}
                 <div ref={el} />
             </ul>
-        </div>
+        </div >
     )
 
 }

@@ -88,7 +88,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function MiniDrawer() {
+export default function MiniDrawer(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -160,7 +160,7 @@ export default function MiniDrawer() {
                 <Divider />
 
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {props.friendList.map((text, index) => (
                         <ListItem button key={text} selected={selectedIndex === text} onClick={event => handleListItemClick(event, text)}>
                             <ListItemIcon><Avatar className={index % 2 === 0 ? classes.avatar : classes.orangeAvatar}>{slice(text)}</Avatar></ListItemIcon>
                             <ListItemText primary={text} />

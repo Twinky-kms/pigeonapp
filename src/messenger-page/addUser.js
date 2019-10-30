@@ -4,7 +4,6 @@ import AddIcon from '@material-ui/icons/Add';
 import { makeStyles } from '@material-ui/core/styles';
 import SelectUser from './selectUser';
 import { createMuiTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
 import { ThemeProvider } from '@material-ui/styles';
 import clsx from 'clsx';
 import Button from '@material-ui/core/Button';
@@ -49,7 +48,7 @@ const theme = createMuiTheme({
     },
 });
 
-export default function AddUser() {
+export default function AddUser(props) {
     const classes = useStyles();
     const [clicks, addClicks] = React.useState(0);
     const [open, setOpen] = React.useState(false);
@@ -57,30 +56,34 @@ export default function AddUser() {
     const color = open ? 'secondary' : 'primary';
 
     function addRoom() {
-        if (clicks % 2 == 0) {
+        if (clicks % 2 === 0) {
             setOpen(true);
         } else {
             setOpen(false);
         }
     }
 
+    function onAddFriend() {
+        var elem = document.getElementById('react-autosuggest-simple').value;
+        props.addFriends(elem);
+    }
+
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme} >
             <Fab color={color} aria-label="add" className={classes.fab} onClick={() => {
                 addClicks(clicks + 1);
-                console.log(clicks);
                 addRoom();
             }} >
                 {style}
             </Fab>
-            <span>Add User</span>
             <div className={clsx({
                 [classes.addRoom]: open,
                 [classes.addRoomClosed]: !open,
             })
             }>
-                <SelectUser />
-                <Button variant="contained" color="primary" className={classes.button}>
+                <SelectUser
+                />
+                <Button variant="contained" color="primary" className={classes.button} onClick={onAddFriend}>
                     New Message
       </Button>
 

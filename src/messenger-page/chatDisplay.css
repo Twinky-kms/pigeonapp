@@ -115,3 +115,22 @@
   .displayConversation li {
     list-style-type: none;
   }
+
+  .dropdown {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .dropdown span {
+    cursor: pointer;
+  }
+
+  .dropdown-menu {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .dropdown-item {
+    padding-left: 10px;
+    cursor: pointer;
+  }
