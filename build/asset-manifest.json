@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/pigeonapp/static/css/main.6620be48.chunk.css",
+    "main.js": "/pigeonapp/static/js/main.20115b0f.chunk.js",
+    "main.js.map": "/pigeonapp/static/js/main.20115b0f.chunk.js.map",
+    "runtime~main.js": "/pigeonapp/static/js/runtime~main.b471474f.js",
+    "runtime~main.js.map": "/pigeonapp/static/js/runtime~main.b471474f.js.map",
+    "static/js/2.61750f36.chunk.js": "/pigeonapp/static/js/2.61750f36.chunk.js",
+    "static/js/2.61750f36.chunk.js.map": "/pigeonapp/static/js/2.61750f36.chunk.js.map",
+    "index.html": "/pigeonapp/index.html",
+    "precache-manifest.2e14a45160f7aafbc682683f1cfb254a.js": "/pigeonapp/precache-manifest.2e14a45160f7aafbc682683f1cfb254a.js",
+    "service-worker.js": "/pigeonapp/service-worker.js",
+    "static/css/main.6620be48.chunk.css.map": "/pigeonapp/static/css/main.6620be48.chunk.css.map"
+  }
+}
