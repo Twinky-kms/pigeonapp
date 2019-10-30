@@ -7,7 +7,7 @@ import Messenger from './messenger-page/messenger';
 
 
 export default function App() {
-  const [value, setValue] = React.useState('messenger');
+  const [value, setValue] = React.useState('profile');
 
   function handlePages(event, newValue) {
     setValue(newValue)

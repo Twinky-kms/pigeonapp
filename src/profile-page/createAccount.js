@@ -7,6 +7,16 @@ const useStyles = makeStyles(theme => ({
     margin: {
         margin: theme.spacing(1),
     },
+    Login: {
+        margin: 'auto',
+        width: '300px',
+        [theme.breakpoints.up('md')]: {
+            width: '500px',
+        },
+        [theme.breakpoints.up('lg')]: {
+            width: '800px',
+        },
+    }
 }));
 
 
@@ -20,7 +30,7 @@ export default function CreateAccount(props) {
         props.whenCreateClose(false);
     }
 
-    return <div className="Login" style={style} >
+    return <div className={`Login ` + classes.Login} style={style} >
         <Fab
             variant="extended"
             size="small"

@@ -66,6 +66,8 @@ export default function AddUser(props) {
     function onAddFriend() {
         var elem = document.getElementById('react-autosuggest-simple').value;
         props.addFriends(elem);
+        addClicks(clicks + 1);
+        addRoom();
     }
 
     return (

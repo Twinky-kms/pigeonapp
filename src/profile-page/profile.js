@@ -1,5 +1,6 @@
 import React from "react";
 import './profile.css';
+import Login from './login';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
@@ -12,6 +13,10 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import Button from '@material-ui/core/Button';
+import TuneIcon from '@material-ui/icons/Tune';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 
 
 
@@ -56,10 +61,16 @@ const useStyles = makeStyles(theme => ({
     },
     listItem: {
         height: 90,
-        boxShadow: '0px 1px 0px 0px rgba(0,0,0,0.75)',
+        boxShadow: '2px 2px 3px 0px rgba(0,0,0,0.75)',
+        marginBottom: 5,
+        background: '#d9d8d7',
     },
     listText: {
         margin: 'auto',
+        marginLeft: 25,
+    },
+    listTextOpen: {
+        display: 'none',
     },
     toolbar: {
         display: 'none',
@@ -78,6 +89,17 @@ const useStyles = makeStyles(theme => ({
             maxWidth: '800px',
         },
     },
+    button: {
+        margin: 'auto',
+        width: '100%',
+    },
+    Icon: {
+        margin: 0,
+    },
+    IconOpen: {
+        margin: 'auto',
+    }
+
 }))
 
 export default function Profile() {
@@ -85,6 +107,7 @@ export default function Profile() {
     const [loggedIn, setLoggedIn] = React.useState(true);
     const [selectedIndex, setSelectedIndex] = React.useState('');
     const [open, setOpen] = React.useState(false);
+    const [signIn, setSignIn] = React.useState(false);
     const [state, setState] = React.useState({
         gilad: true,
         jason: false,
@@ -104,13 +127,26 @@ export default function Profile() {
         setOpen(false);
         setSelectedIndex('');
     }
+    function openSignIn() {
+        setSignIn(true);
+    }
 
     function logged() {
         if (loggedIn !== true) {
-            return <div className="profile-login-avatar">Sign In/Log In</div>
+            return <Button variant="contained" className={classes.button + ` profile-login`} onClick={openSignIn}>Sign In/Log In</Button>
         } else {
             return <div className="profile-avatar"><Avatar>H</Avatar>
-                <span>Username</span><span>Log Out</span></div>
+                <span>Username</span><span className="logout" onClick={() => { setLoggedIn(false); }}>Log Out</span></div>
+        }
+    }
+
+    function handleCloseChange(e) {
+        setSignIn(e);
+    }
+
+    function loginPage() {
+        if (signIn === true) {
+            return (<Login whenClose={handleCloseChange}></Login>)
         }
     }
 
@@ -156,6 +192,7 @@ export default function Profile() {
 
     return (
         <div className={classes.root}>
+            {loginPage()}
             {logged()}
             <div onClick={handleListClose} className={clsx(classes.toolbar, {
                 [classes.toolbarOpen]: open,
@@ -169,17 +206,41 @@ export default function Profile() {
                 [classes.listOpen]: open,
                 [classes.list]: !open,
             })}>
-                {['Display', 'Privacy', 'Notifications'].map((text, index) => (
-                    <ListItem button key={text} className={classes.listItem} selected={selectedIndex === text}
-                        onClick={event => handleListItemClick(event, text)}>
-                        <ListItemText className={classes.listText} >{text}</ListItemText>
-                    </ListItem>
-                ))}
+                <ListItem button className={classes.listItem} selected={selectedIndex === 'Display'}
+                    onClick={event => handleListItemClick(event, 'Display')}>
+                    <TuneIcon className={clsx({
+                        [classes.IconOpen]: open,
+                        [classes.Icon]: !open,
+                    })} /><ListItemText className={clsx({
+                        [classes.listTextOpen]: open,
+                        [classes.listText]: !open,
+                    })} >Display</ListItemText>
+                </ListItem>
+                <ListItem button className={classes.listItem} selected={selectedIndex === 'Privacy'}
+                    onClick={event => handleListItemClick(event, 'Privacy')}>
+                    <LockOpenIcon className={clsx({
+                        [classes.IconOpen]: open,
+                        [classes.Icon]: !open,
+                    })} /> <ListItemText className={clsx({
+                        [classes.listTextOpen]: open,
+                        [classes.listText]: !open,
+                    })} >Privacy</ListItemText>
+                </ListItem>
+                <ListItem button className={classes.listItem} selected={selectedIndex === 'Notifications'}
+                    onClick={event => handleListItemClick(event, 'Notifications')}>
+                    <NotificationsActiveIcon className={clsx({
+                        [classes.IconOpen]: open,
+                        [classes.Icon]: !open,
+                    })} /><ListItemText className={clsx({
+                        [classes.listTextOpen]: open,
+                        [classes.listText]: !open,
+                    })} >Notifications</ListItemText>
+                </ListItem>
             </List>
             <div>
                 {settingsPageChange()}
             </div>
 
-        </div>
+        </div >
     )
 }

@@ -44,7 +44,6 @@ const Message = ({ senderId, text, messageNumber }) => {
                                 return elem.parentNode.removeChild(elem);
                             }}
                         >Delete</Button>
-                        <Button className="dropdown-item" color="primary" size="small">Edit</Button>
                     </div>
                 )}
             </div>

@@ -16,6 +16,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
+import Badge from '@material-ui/core/Badge';
+import InfoIcon from '@material-ui/icons/Info';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 
 
 const drawerWidth = 240;
@@ -39,8 +44,14 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
+    margin: {
+        margin: theme.spacing(2),
+    },
     menuButton: {
         marginRight: 36,
+    },
+    button: {
+        margin: theme.spacing(1),
     },
     hide: {
         display: 'none',
@@ -86,16 +97,54 @@ const useStyles = makeStyles(theme => ({
         color: '#fff',
         backgroundColor: '#ffdd57',
     },
+    padding: {
+        paddingBottom: 24,
+    },
+    info: {
+        position: "absolute",
+        width: "125px",
+        height: "50px",
+        background: "grey",
+        top: "50px",
+        left: "100px",
+    }
 }));
 
 export default function MiniDrawer(props) {
     const classes = useStyles();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
-    const [selectedIndex, setSelectedIndex] = React.useState('Messenger');
+    const [selectedIndex, setSelectedIndex] = React.useState("Messenger");
+    const [horizontal, setHorizontal] = React.useState('left');
+    const [vertical, setVertical] = React.useState('top');
+    const [infoSelect, setInfoSelect] = React.useState(false);
+    const [checkedA, setCheckedA] = React.useState(false);
+
+
+    const handleChange = name => event => {
+        if (checkedA !== true) {
+            setCheckedA(false);
+        } else {
+            setCheckedA(true);
+        }
+    };
+
+    function infoOpen() {
+        if (selectedIndex !== "Messenger" && infoSelect === false) {
+            setInfoSelect(true);
+        } else if (infoSelect === true) {
+            setInfoSelect(false);
+        }
+    }
+    function infoClose() {
+        if (infoSelect === true) {
+            setInfoSelect(false);
+        }
+    }
 
     function handleListItemClick(event, index) {
-        setSelectedIndex(index);
+        setSelectedIndex(index.friend);
+        setCheckedA(index.muted);
     }
 
     function handleDrawerOpen() {
@@ -110,6 +159,10 @@ export default function MiniDrawer(props) {
         var x = name;
         var y = x.slice(0, 1);
         return (y)
+    }
+    function randomNumber() {
+        var y = Math.floor(Math.random() * 101)
+        return y
     }
 
     return (
@@ -136,6 +189,18 @@ export default function MiniDrawer(props) {
                     <Typography variant="h6" noWrap>
                         {selectedIndex}
                     </Typography>
+                    <IconButton className={classes.button} onClick={infoOpen} aria-label="delete" color="primary"><InfoIcon /></IconButton>
+                    <div className={clsx({
+                        [classes.info]: infoSelect,
+                        [classes.hide]: !infoSelect,
+                    })} >
+                        <FormControlLabel
+                            control={
+                                <Checkbox checked={checkedA} onChange={handleChange('checkedA')} value="checkedA" />
+                            }
+                            label="Mute Chat"
+                        />
+                    </div>
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -159,11 +224,20 @@ export default function MiniDrawer(props) {
                 </div>
                 <Divider />
 
-                <List>
-                    {props.friendList.map((text, index) => (
-                        <ListItem button key={text} selected={selectedIndex === text} onClick={event => handleListItemClick(event, text)}>
-                            <ListItemIcon><Avatar className={index % 2 === 0 ? classes.avatar : classes.orangeAvatar}>{slice(text)}</Avatar></ListItemIcon>
-                            <ListItemText primary={text} />
+                <List className={classes.padding}>
+                    {props.friendList.friends.map((text, index) => (
+                        <ListItem button key={index} selected={selectedIndex === text.friend} onClick={event => handleListItemClick(event, text)}>
+                            <ListItemIcon>
+                                <Badge
+                                    color="secondary"
+                                    max={99}
+                                    badgeContent={randomNumber(index)}
+                                    anchorOrigin={{
+                                        horizontal,
+                                        vertical,
+                                    }}
+                                ><Avatar className={index % 2 === 0 ? classes.avatar : classes.orangeAvatar}>{slice(text.friend)}</Avatar></Badge></ListItemIcon>
+                            <ListItemText primary={text.friend} />
                         </ListItem>
                     ))}
                 </List>
@@ -171,6 +245,6 @@ export default function MiniDrawer(props) {
             <main className={classes.content}>
                 <div className={classes.toolbar} />
             </main>
-        </div>
+        </div >
     );
 }
