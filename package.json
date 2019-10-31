@@ -1,6 +1,6 @@
 {
   "homepage": "https://NorthCrypto1.github.io/pigeonapp",
-  "name": "messenger",
+  "name": "pigeonapp",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
