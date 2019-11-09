@@ -10,6 +10,7 @@ class Login extends React.Component {
         this.state = {
             commandHistory: [],
             value: '',
+            revealLogin: false,
         };
         this.handleTextChange = this.handleTextChange.bind(this);
         this.keyPress = this.keyPress.bind(this);

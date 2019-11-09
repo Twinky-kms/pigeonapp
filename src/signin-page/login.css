@@ -1,0 +1,111 @@
+.Login {
+    background: linear-gradient(to bottom, #2e77d5 1%,#2989d8 74%,#209cee 100%);
+    position: absolute;
+    height: 55vh;
+    overflow: hidden;
+    display: block;
+    z-index: 1000;
+    border-radius: 10px;
+    color: white;
+    box-shadow: 2.5px 2.5px 10px 0px rgba(0,0,0,0.75);
+    margin: auto;
+  }
+  
+  .exit {
+    float: right;
+    font-size: 1.35rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 50%;
+    text-align: center;
+    cursor: pointer;
+  }
+  
+  .exit:hover {
+    background-color: #2e77d5;
+  }
+  
+  .sign-in-title {
+    font-family: bahnschrift;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  .text {
+    margin-top: 1.25rem;
+    font-family: roboto;
+    font-weight: light;
+  }
+  
+  .login-text {
+    border: none;
+    height: 2rem;
+    position: relative;
+    background: white;
+    border-bottom: .1rem solid #23d160;
+  }
+  
+  .login-text::placeholder {
+    color: #d9d8d7;
+  }
+  
+  .login-text:focus {
+    border: .1rem solid #23d160;
+    transition: .2s;
+  }
+  
+  .login-text:focus::placeholder {
+    opacity: .1;
+    transition: .1s;
+  }
+  
+  .qwe label {
+    margin-left: 10%;
+  }
+  
+  .continue {
+    height: 2rem;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 1rem;
+    font-family: roboto;
+    background: white;
+    border-radius: 10px;
+  }
+  
+  .continue span {
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .continue span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+  }
+  
+  .continue:hover span {
+    padding-right: 25px;
+  }
+  
+  .continue:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  
+  .s-center {
+    left: 10%;
+    width: 80%;
+  }
+  
+  .createButton {
+      font-size: .8rem;
+      color: #000;
+      margin: 10px auto auto auto;
+      cursor: pointer;
+      text-align: center;
+  }

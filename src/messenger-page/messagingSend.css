@@ -1,12 +1,12 @@
 .messagingSend {
     position: fixed;
     align-self: flex-end;
-    padding-left: 24px;
-    width: calc(100% - 72px);
+    width: 100%;
     height: 28px;
     bottom: 56px;
-    right: 10px;
     z-index: 12;
+    padding-left: 68px;
+    background: white;
 }
   
   #send {
@@ -19,7 +19,7 @@
       font: -webkit-small-control;
       height: 28px;
       padding: 2px;
-    width: 100%;
+      width: calc(100% - 77px)
   }
   
   
@@ -28,7 +28,10 @@
     height: 28px;
     color: blue;
     display: flex;
-      align-items: center;
+    align-items: center;
+    margin-left: 5px;
+    margin-right: 5px;
+    cursor: pointer;
   }
   
   .emojiButton {

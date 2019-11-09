@@ -1,6 +1,6 @@
 import React from "react";
 import './profile.css';
-import Login from './login';
+import Login from '../signin-page/login';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import ListItem from '@material-ui/core/ListItem';
@@ -23,13 +23,11 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 const useStyles = makeStyles(theme => ({
     root: {
         margin: 'auto',
-        width: '300px',
-        [theme.breakpoints.up('md')]: {
-            width: '500px',
-        },
-        [theme.breakpoints.up('lg')]: {
-            width: '800px',
-        },
+        background: '#d9d8d7',
+        width: '100%',
+        maxWidth: 1200,
+        height: '100%',
+        overflow: 'auto',
     },
     list: {
         display: 'flex',
@@ -63,7 +61,7 @@ const useStyles = makeStyles(theme => ({
         height: 90,
         boxShadow: '2px 2px 3px 0px rgba(0,0,0,0.75)',
         marginBottom: 5,
-        background: '#d9d8d7',
+        background: 'white',
     },
     listText: {
         margin: 'auto',
