@@ -13,12 +13,6 @@ export default function App() {
   const [hideNav, setNav] = React.useState(true);
   const style = hideNav ? { display: 'none' } : {};
 
-  var prod = false;
-
-  if(!prod) {
-    localStorage.setItem('debug', 'awesome-react-app:*');
-  }
-
   function handlePages(event, newValue) {
     setValue(newValue)
   }

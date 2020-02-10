@@ -2,8 +2,6 @@ import React from 'react';
 import CloseIcon from '@material-ui/icons/Close';
 import Fab from '@material-ui/core/Fab';
 import { makeStyles } from '@material-ui/core/styles';
-import accounts from '../backend/models/accounts';
-import debug from '../backend/modules/debug';
 
 const useStyles = makeStyles(theme => ({
     margin: {
@@ -22,17 +20,6 @@ export default function CreateAccount(props) {
         props.whenCreateClose(false);
     }
 
-    function createAcc(user, pass) {
-        var acc = new accounts(user, pass);
-        var obj = {
-            user: user,
-            pass: pass
-        }
-        debug.Log.info("hello", `App Component`)
-        JSON.stringify(obj);
-        acc.updateDatabase(obj);
-    }
-
     return <div className="Login" style={style} >
         <Fab
             variant="extended"
@@ -40,7 +27,7 @@ export default function CreateAccount(props) {
             color="primary"
             aria-label="add"
             className={classes.margin + ` exit`}
-            onClick={handleChange, createAcc(Uname, Pname)}
+            onClick={handleChange}
         ><CloseIcon /></Fab>
         <div className="qwe">
             <div className="sign-in-title">Register</div>
@@ -50,8 +37,8 @@ export default function CreateAccount(props) {
                     <input type="text" name="Uname" placeholder="Create Username" className="login-text s-center" /><br />
                 </div>
                 <div className="text">
-                    <label for="password">Password</label><br />
-                    <input type="text" name="Pname" placeholder="Enter Password" className="login-text s-center" /><br />
+                    <label for="username">Password</label><br />
+                    <input type="text" name="Uname" placeholder="Enter Password" className="login-text s-center" /><br />
                 </div>
                 <div className="text">
                     <label for="password">Confirm Password</label><br />
